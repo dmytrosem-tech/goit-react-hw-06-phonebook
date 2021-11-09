@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import phoneBookActions from "../../redux/Phonebook/phonebook-actions";
 console.log(phoneBookActions);
 
-function ContactForm({ onSubmit }) {
+function ContactForm({ onSubmit2 }) {
   const contName = uuid();
   const contNumber = uuid();
 
@@ -30,7 +30,12 @@ function ContactForm({ onSubmit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(name, number);
+    const cont = {
+      name: name,
+      number: number,
+      id: uuid(),
+    };
+    onSubmit2(cont);
     resetForm();
   };
 
@@ -83,7 +88,6 @@ ContactForm.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onSubmit: (name, number) =>
-    dispatch(phoneBookActions.addContact(name, number)),
+  onSubmit2: (cont) => dispatch(phoneBookActions.addContact(cont)),
 });
 export default connect(null, mapDispatchToProps)(ContactForm);

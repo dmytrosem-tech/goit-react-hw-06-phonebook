@@ -1,13 +1,8 @@
 import types from "./phonebook-types";
-import { v4 as uuid } from "uuid";
 
-const addContact = (name, number) => ({
+const addContact = (cont) => ({
   type: types.ADD,
-  payload: {
-    name,
-    number,
-    id: uuid(),
-  },
+  payload: cont,
 });
 
 const deleteContact = (contactId) => ({
