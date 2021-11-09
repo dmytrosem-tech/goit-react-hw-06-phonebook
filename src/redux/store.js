@@ -1,7 +1,9 @@
-import { createStore } from "redux";
-const initialState = [];
-const reducer = (state = initialState, action) => {
-  return state;
-};
-const store = createStore(reducer);
+import { createStore, combineReducers } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import contactsReducer from "./Phonebook/phonebook-reducer";
+
+const rootReducer = combineReducers({
+  phonebookContacts: contactsReducer,
+});
+const store = createStore(rootReducer, composeWithDevTools());
 export default store;

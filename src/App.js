@@ -4,48 +4,45 @@ import Filter from "./Components/Filter";
 import ContactList from "./Components/ContactList";
 
 export default function App() {
-  const [contacts, setContacts] = useState(
-    () => JSON.parse(window.localStorage.getItem("contacts")) ?? ""
-  );
-  const [filter, setFilter] = useState("");
+  // const [contacts, setContacts] = useState(
+  //   () => JSON.parse(window.localStorage.getItem("contacts")) ?? []
+  // );
+  // const [filter, setFilter] = useState("");
 
-  const addNewContact = (obj) => {
-    const { name } = obj;
-    if (contacts.some(({ name }) => name === obj.name)) {
-      alert(`Sorry, ${name} is already in contacts list`);
-      return;
-    }
-    setContacts((prevContacts) => [obj, ...prevContacts]);
-  };
+  // const addNewContact = (obj) => {
+  //   const { name } = obj;
+  //   if (contacts.some(({ name }) => name === obj.name)) {
+  //     alert(`Sorry, ${name} is already in contacts list`);
+  //     return;
+  //   }
+  //   setContacts((prevContacts) => [obj, ...prevContacts]);
+  // };
 
-  const deleteContact = (contactId) => {
-    setContacts(contacts.filter((contact) => contact.id !== contactId));
-  };
-  const changeFilter = (e) => {
-    setFilter(e.target.value);
-  };
+  // const deleteContact = (contactId) => {
+  //   setContacts(contacts.filter((contact) => contact.id !== contactId));
+  // };
+  // const changeFilter = (e) => {
+  //   setFilter(e.target.value);
+  // };
 
-  const getFilteredContacts = () => {
-    const normalizedFilter = filter.toLowerCase();
-    return contacts.filter((contact) =>
-      contact.name.toLowerCase().includes(normalizedFilter)
-    );
-  };
+  // const getFilteredContacts = () => {
+  //   const normalizedFilter = filter.toLowerCase();
+  //   return contacts.filter((contact) =>
+  //     contact.name.toLowerCase().includes(normalizedFilter)
+  //   );
+  // };
 
-  useEffect(() => {
-    window.localStorage.setItem("contacts", JSON.stringify(contacts));
-  }, [contacts]);
+  // useEffect(() => {
+  //   window.localStorage.setItem("contacts", JSON.stringify(contacts));
+  // }, [contacts]);
 
   return (
     <div>
       <h1>Phonebook</h1>
-      <ContactForm addNewContact={addNewContact} />
+      <ContactForm />
       <h2>Contacts</h2>
-      <Filter filter={filter} onChange={changeFilter} />
-      <ContactList
-        contacts={getFilteredContacts()}
-        deleteContact={deleteContact}
-      />
+      {/* <Filter filter={filter} onChange={changeFilter} /> */}
+      <ContactList />
     </div>
   );
 }

@@ -2,8 +2,11 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuid } from "uuid";
 import styles from "./ContactForm.module.css";
+import { connect } from "react-redux";
+import phoneBookActions from "../../redux/Phonebook/phonebook-actions";
+console.log(phoneBookActions);
 
-export default function ContactForm({ addNewContact }) {
+function ContactForm({ onSubmit }) {
   const contName = uuid();
   const contNumber = uuid();
 
@@ -27,12 +30,7 @@ export default function ContactForm({ addNewContact }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const contactObj = {
-      name,
-      number,
-      id: uuid(),
-    };
-    addNewContact(contactObj);
+    onSubmit(name, number);
     resetForm();
   };
 
@@ -83,3 +81,9 @@ export default function ContactForm({ addNewContact }) {
 ContactForm.propTypes = {
   addNewContact: PropTypes.func,
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  onSubmit: (name, number) =>
+    dispatch(phoneBookActions.addContact(name, number)),
+});
+export default connect(null, mapDispatchToProps)(ContactForm);
