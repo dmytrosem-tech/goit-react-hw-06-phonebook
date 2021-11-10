@@ -1,7 +1,9 @@
+import { connect } from "react-redux";
+import phoneBookActions from "../../redux/Phonebook/phonebook-actions";
 import PropTypes from "prop-types";
 import styles from "./Filter.module.css";
 
-export default function Filter({ filter, onChange }) {
+function Filter({ filter, onChange1 }) {
   const { box, input } = styles;
   return (
     <div className={box}>
@@ -12,7 +14,7 @@ export default function Filter({ filter, onChange }) {
         type="text"
         name="filter"
         value={filter}
-        onChange={onChange}
+        onChange={onChange1}
       />
     </div>
   );
@@ -20,5 +22,15 @@ export default function Filter({ filter, onChange }) {
 
 Filter.propTypes = {
   filter: PropTypes.string,
-  onChange: PropTypes.func,
+  onChange1: PropTypes.func,
 };
+
+const mapStateToProps = (state) => ({
+  filter: state.phonebookContacts.filter,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onChange1: (e) => dispatch(phoneBookActions.changeFilter(e)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);

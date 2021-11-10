@@ -1,10 +1,9 @@
 import { useState } from "react";
+import { connect } from "react-redux";
+import phoneBookActions from "../../redux/Phonebook/phonebook-actions";
 import PropTypes from "prop-types";
 import { v4 as uuid } from "uuid";
 import styles from "./ContactForm.module.css";
-import { connect } from "react-redux";
-import phoneBookActions from "../../redux/Phonebook/phonebook-actions";
-console.log(phoneBookActions);
 
 function ContactForm({ onSubmit2 }) {
   const contName = uuid();

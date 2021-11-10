@@ -4,17 +4,18 @@ import PropTypes from "prop-types";
 import ContactItem from "../ContactItem";
 import styles from "./ContactList.module.css";
 
-function ContactList({ contacts, deleteContact }) {
+function ContactList({ contacts, filter }) {
+  const getFilteredContacts = () => {
+    const normalizedFilter = filter.toLowerCase();
+    return contacts.filter((contact) =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    );
+  };
+
   return (
     <ul className={styles.contacts__list}>
-      {contacts.map(({ name, number, id }) => (
-        <ContactItem
-          key={id}
-          name={name}
-          number={number}
-          id={id}
-          deleteContact={deleteContact}
-        />
+      {getFilteredContacts().map(({ name, number, id }) => (
+        <ContactItem key={id} name={name} number={number} id={id} />
       ))}
     </ul>
   );
@@ -27,10 +28,7 @@ ContactList.propTypes = {
 
 const mapStateToProps = (state) => ({
   contacts: state.phonebookContacts.contacts,
+  filter: state.phonebookContacts.filter,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  deleteContact: () => null,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContactItem);
+export default connect(mapStateToProps, null)(ContactList);

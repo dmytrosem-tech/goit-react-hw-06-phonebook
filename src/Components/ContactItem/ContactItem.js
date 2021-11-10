@@ -1,6 +1,9 @@
+import { connect } from "react-redux";
+import phoneBookActions from "../../redux/Phonebook/phonebook-actions";
 import PropTypes from "prop-types";
 import styles from "./ContactItem.module.css";
-export default function ContactItem({ name, number, deleteContact, id }) {
+
+function ContactItem({ name, number, deleteContact, id }) {
   const { contacts__item, contact__name, contact__number, contacts__btn } =
     styles;
   return (
@@ -20,3 +23,9 @@ ContactItem.propTypes = {
   deleteContact: PropTypes.func,
   id: PropTypes.string,
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  deleteContact: (id) => dispatch(phoneBookActions.deleteContact(id)),
+});
+
+export default connect(null, mapDispatchToProps)(ContactItem);
