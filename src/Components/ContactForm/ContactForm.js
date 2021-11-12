@@ -1,17 +1,18 @@
 import { useState } from "react";
-import { connect } from "react-redux";
-import phoneBookActions from "../../redux/Phonebook/phonebook-actions";
-import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import { addContact } from "../../redux/Phonebook/phonebook-actions";
 import { v4 as uuid } from "uuid";
 import styles from "./ContactForm.module.css";
+// import { connect } from "react-redux";
 
-function ContactForm({ onSubmit2 }) {
+export default function ContactForm({ onSubmit2 }) {
   const contName = uuid();
   const contNumber = uuid();
 
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const [active] = useState(false);
+  const dispatch = useDispatch();
 
   const handleChangeAllInputs = (e) => {
     const { name, value } = e.target;
@@ -34,7 +35,8 @@ function ContactForm({ onSubmit2 }) {
       number: number,
       id: uuid(),
     };
-    onSubmit2(cont);
+    // onSubmit(cont)
+    dispatch(addContact(cont));
     resetForm();
   };
 
@@ -82,11 +84,7 @@ function ContactForm({ onSubmit2 }) {
   );
 }
 
-ContactForm.propTypes = {
-  addNewContact: PropTypes.func,
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit2: (cont) => dispatch(phoneBookActions.addContact(cont)),
-});
-export default connect(null, mapDispatchToProps)(ContactForm);
+// const mapDispatchToProps = (dispatch) => ({
+//   onSubmit2: (cont) => dispatch(addContact(cont)),
+// });
+// export default connect(null, mapDispatchToProps)(ContactForm);

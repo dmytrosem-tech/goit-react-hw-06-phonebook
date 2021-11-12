@@ -1,10 +1,14 @@
 import React from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import ContactItem from "../ContactItem";
 import styles from "./ContactList.module.css";
+import { useSelector } from "react-redux";
+import { getContacts, getFilter } from "../../redux/Phonebook/selectors";
+// import { connect } from "react-redux";
 
-function ContactList({ contacts, filter }) {
+export default function ContactList() {
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilter);
+
   const getFilteredContacts = () => {
     const normalizedFilter = filter.toLowerCase();
     return contacts.filter((contact) =>
@@ -21,14 +25,9 @@ function ContactList({ contacts, filter }) {
   );
 }
 
-ContactList.propTypes = {
-  contacts: PropTypes.array,
-  deleteContact: PropTypes.func,
-};
+// const mapStateToProps = (state) => ({
+//   contacts: state.contactsList,
+//   filter: state.contactsFilter,
+// });
 
-const mapStateToProps = (state) => ({
-  contacts: state.phonebookContacts.contacts,
-  filter: state.phonebookContacts.filter,
-});
-
-export default connect(mapStateToProps, null)(ContactList);
+// export default connect(mapStateToProps, null)(ContactList);
